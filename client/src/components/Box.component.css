@@ -1,0 +1,81 @@
+.box {
+    height: 552px;
+    width: 772px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .rectangle {
+    background: linear-gradient(180deg, rgba(231, 77, 172, 0.287) 0%, rgb(133, 53, 213) 100%);
+    border-radius: 50px;
+    height: 252px;
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-form {
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    text-align: auto;
+  }
+  
+  .form-title,
+.form-label {
+  font-size: 24px;
+  margin-bottom: 5px;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.72);
+}
+  
+  .input-field {
+    width: 100%;
+    padding: 5px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 254, 254, 0.129);
+    transition: background 0.3s ease-in-out;
+    outline: none;
+  }
+  
+  .submit-button {
+    background: #00fffb2a;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .submit-button:hover {
+    background: #4707dd99;
+    transform: scale(1.05);
+  }
+  
+  .register-link {
+    text-align: center; /* Alinea el texto a la izquierda */
+    margin-top: 0px; /* Espacio superior */
+  }
+  
+  .register-text {
+    font-size: 12px; /* Tamaño de fuente más pequeño */
+    color: #ffffff; /* Color blanco */
+    text-decoration: transparent; /* Elimina el subrayado del enlace */
+  }
+  
+  .register-text:hover {
+    text-decoration: underline; /* Agrega subrayado al pasar el mouse sobre el enlace */
+  }
