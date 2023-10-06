@@ -1,0 +1,8 @@
+CREATE DATABASE userdb
+
+CREATE TABLE userpro(
+  id SERIAL PRIMARY KEY,
+usuario VARCHAR(255) UNIQUE,
+password VARCHAR(255) 
+
+);
