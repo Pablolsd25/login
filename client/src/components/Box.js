@@ -1,17 +1,36 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import '../components/Box.component.css';
 
 export default function Box() {
   const [usuario, setUsuario] = useState('');
   const [contraseña, setContraseña] = useState('');
+  const [mensajeBienvenida, setMensajeBienvenida] = useState('');
+  const [datosUsuario, setDatosUsuario] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Usuario:', usuario);
-    console.log('Contraseña:', contraseña);
-    setUsuario('');
-    setContraseña('');
+
+    try {
+      const response = await axios.post('http://localhost:4000/user', {
+        usuario,
+        password: contraseña,
+      });
+
+      if (response.status === 200) {
+        // Inicio de sesión exitoso, muestra un mensaje de bienvenida
+        const usuarioData = response.data;
+        setMensajeBienvenida(`¡Bienvenido, ${usuarioData.usuario}!`);
+        // Actualiza los datos del usuario
+        setDatosUsuario(usuarioData);
+      }
+    } catch (error) {
+      // Manejo de errores
+      console.error(error);
+      setMensajeBienvenida('Usuario o contraseña incorrectos');
+      setDatosUsuario(null);
+    }
   };
 
   return (
@@ -45,10 +64,17 @@ export default function Box() {
             <button type="submit" className="submit-button">
               Ingresar
             </button>
-            <p className="register-link">
-  ¿No tienes una cuenta? <Link to="/registro" className="register-text">Regístrate</Link>
-</p>
           </form>
+          {mensajeBienvenida && <p className="bienvenida">{mensajeBienvenida}</p>}
+          {datosUsuario && (
+            <div className="datos-usuario">
+              <p>Usuario: {datosUsuario.usuario}</p>
+              <p>Contraseña: {datosUsuario.password}</p>
+            </div>
+          )}
+          <p className="register-link">
+            ¿No tienes una cuenta? <Link to="/registro" className="register-text">Regístrate</Link>
+          </p>
         </div>
       </div>
     </div>
