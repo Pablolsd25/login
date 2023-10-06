@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom'
 import '../components/Box.component.css';
 
 export default function Box() {
@@ -45,8 +46,8 @@ export default function Box() {
               Ingresar
             </button>
             <p className="register-link">
-              <a href="/registro" className="register-text">¿No tienes una cuenta? Regístrate</a>
-            </p>
+  ¿No tienes una cuenta? <Link to="/registro" className="register-text">Regístrate</Link>
+</p>
           </form>
         </div>
       </div>
