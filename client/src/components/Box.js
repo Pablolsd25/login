@@ -13,7 +13,7 @@ export default function Box() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:4000/user', {
+      const response = await axios.post('http://localhost:4000/auth', {
         usuario,
         password: contraseña,
       });
@@ -73,7 +73,7 @@ export default function Box() {
             </div>
           )}
           <p className="register-link">
-            ¿No tienes una cuenta? <Link to="/registro" className="register-text">Regístrate</Link>
+            ¿No tienes una cuenta? <Link to="/registro" className="register-text">Regístrate aquí</Link>
           </p>
         </div>
       </div>

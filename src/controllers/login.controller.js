@@ -12,17 +12,38 @@ const getAllUser = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const result = await pool.query("SELECT * FROM userpro WHERE id = $1", [id]);
-    if (result.rows.length === 0)
-      return res.status(404).json({
-        message: "user not found",
+    const { usuario, password } = req.query;
+
+    // Verifica que se proporcionaron credenciales
+    if (!usuario || !password) {
+      return res.status(400).json({
+        message: "Debes proporcionar un nombre de usuario y una contraseña.",
       });
-    res.json(result.rows[0]);
+    }
+
+    // Obtén el usuario de la base de datos
+    const userResult = await pool.query(
+      "SELECT * FROM userpro WHERE usuario = $1 AND password = $2",
+      [usuario, password]
+    );
+
+    if (userResult.rows.length === 0) {
+      return res.status(401).json({
+        message: "Credenciales incorrectas",
+      });
+    }
+
+    const user = userResult.rows[0];
+
+    // Devuelve los datos del usuario en la respuesta
+    res.json(user);
   } catch (error) {
     next(error);
   }
 };
+
+
+
 
 const createUser = async (req, res, next) => {
   const { usuario, password } = req.body;
@@ -73,11 +94,48 @@ const updateUser = async(req,res,next)=>{
 
 
 }
+const authenticateUser = async (req, res, next) => {
+  try {
+    const { usuario, password } = req.body;
+
+    // Verifica que se proporcionaron credenciales
+    if (!usuario || !password) {
+      return res.status(400).json({
+        message: 'Debes proporcionar un nombre de usuario y una contraseña.',
+      });
+    }
+
+    // Obtén el usuario de la base de datos
+    const userResult = await pool.query(
+      'SELECT * FROM userpro WHERE usuario = $1 AND password = $2',
+      [usuario, password]
+    );
+
+    if (userResult.rows.length === 0) {
+      return res.status(401).json({
+        message: 'Credenciales incorrectas',
+      });
+    }
+
+    const user = userResult.rows[0];
+
+    // Devuelve los datos del usuario en la respuesta
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+
+
 
 module.exports = {
   getAllUser,
   getUser,
   createUser,
   deleteUser,
+  authenticateUser,
   updateUser   
 }
